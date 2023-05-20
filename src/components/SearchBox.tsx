@@ -7,11 +7,17 @@ import {
   View,
 } from 'react-native';
 import {palette, theme} from '../constants/Colors';
+import {useNavigation} from '@react-navigation/native';
+import Screens from '../constants/Screens';
 
 type SearchProps = {
   placeholder: String;
 };
 const SearchBox: React.FC<SearchProps> = ({placeholder}: SearchProps) => {
+  const navigation = useNavigation();
+  const showSearchResult = () => {
+    navigation.navigate(Screens.LISTING, {title: 'Your search result'});
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -19,7 +25,7 @@ const SearchBox: React.FC<SearchProps> = ({placeholder}: SearchProps) => {
         placeholderTextColor={palette.WHITE}
         style={styles.searchBar}
       />
-      <TouchableOpacity style={styles.searchButton}>
+      <TouchableOpacity style={styles.searchButton} onPress={showSearchResult}>
         <Image
           style={styles.image}
           source={require('../assets/images/search.png')}
