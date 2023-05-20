@@ -8,40 +8,34 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaView, StyleSheet, Text, useColorScheme} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Screens from './src/constants/Screens';
 import HomeScreen from './src/screens/HomeScreen';
+import BookDetailScreen from './src/screens/BookDetailScreen';
+import ListingScreen from './src/screens/ListingScreen';
 
 const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return <HomeScreen />;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name={Screens.HOME}
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Screens.BOOK_DETAILS}
+          component={BookDetailScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name={Screens.LISTING}
+          component={ListingScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

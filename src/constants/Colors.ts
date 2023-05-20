@@ -8,6 +8,8 @@ export const palette = {
     DEEP_SPACE_SPARKLE: '#436379',
     PURPLE_NAVY:'#434979',
     PIXIE_POWDER:'#33188F',
+    BRIGHT_GRAY:'#EEEEEE',
+    PHILLIPPINE_GRAY:'#929292',
   }
 
 export const theme = {

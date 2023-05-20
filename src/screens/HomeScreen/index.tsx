@@ -18,7 +18,6 @@ const HomeScreen: React.FC<Props> = () => {
         <Greeting name="Vivek" />
         <SearchBox placeholder="Search your books" />
         <ShowCase title="Trending now" data={[]} isHorizontal={true} />
-
         <ShowCase title="My favourite" data={[]} isHorizontal={false} />
       </View>
     </SafeAreaView>

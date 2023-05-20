@@ -2,6 +2,8 @@ import React from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {palette} from '../constants/Colors';
 import BookThumbnail from './BookThumbnail';
+import {useNavigation} from '@react-navigation/native';
+import Screens from '../constants/Screens';
 
 type ShowcaseProps = {
   title: string;
@@ -10,26 +12,29 @@ type ShowcaseProps = {
 };
 const ShowCase: React.FC<ShowcaseProps> = ({
   title,
-  datt,
+  data,
   isHorizontal = true,
 }: ShowcaseProps) => {
   const customData = require('../helper/dummyData/books.json');
+  const navigation = useNavigation();
+  const showMoreBooks = () => {
+    navigation.navigate(Screens.LISTING, {title: title});
+  };
   const renderItem = ({item}) => (
-    <BookThumbnail title={item.title} author={item.author} />
+    <BookThumbnail
+      title={item.title}
+      author={item.author}
+      isHorizontal={isHorizontal}
+    />
   );
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginBottom: 10,
-          justifyContent: 'space-between',
-        }}>
+      <View style={styles.headerSection}>
         <Text style={{color: palette.WHITE, fontSize: 20, fontWeight: '600'}}>
           {title}
         </Text>
-        <Pressable style={{alignSelf: 'center'}}>
+        <Pressable style={{alignSelf: 'center'}} onPress={showMoreBooks}>
           <Text style={{color: palette.WHITE}}>See all</Text>
         </Pressable>
       </View>
@@ -38,7 +43,6 @@ const ShowCase: React.FC<ShowcaseProps> = ({
         showsHorizontalScrollIndicator={false}
         renderItem={item => renderItem(item)}
         horizontal={isHorizontal}
-        style={{paddingHorizontal: 15}}
       />
     </View>
   );
@@ -47,6 +51,11 @@ const ShowCase: React.FC<ShowcaseProps> = ({
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  headerSection: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    justifyContent: 'space-between',
   },
 });
 export default ShowCase;
