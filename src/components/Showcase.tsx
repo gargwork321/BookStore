@@ -15,10 +15,9 @@ const ShowCase: React.FC<ShowcaseProps> = ({
   data,
   isHorizontal = true,
 }: ShowcaseProps) => {
-  // const customData = require('../helper/dummyData/books.json');
   const navigation = useNavigation();
   const showMoreBooks = () => {
-    navigation.navigate(Screens.LISTING, {title: title});
+    navigation.navigate(Screens.LISTING, {title: title, isSearching: false});
   };
   const renderItem = ({item}) => (
     <BookThumbnail book={item} isHorizontal={isHorizontal} />

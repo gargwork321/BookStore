@@ -9,4 +9,5 @@ export default {
     reader: require('../assets/images/reader.png'),
     search: require('../assets/images/search.png'),
     downloading: require('../assets/images/bookDownloading.png'),
+    bookPlaceholder: require('../assets/images/bookPlaceholder.png'),
 };

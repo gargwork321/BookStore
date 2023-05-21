@@ -36,7 +36,6 @@ const HomeScreen: React.FC<Props> = () => {
       <View style={styles.container}>
         <TopHeader />
         <Greeting name="Vivek" />
-        {/* <SearchBox placeholder="Search your books" /> */}
         <ShowCase title="Trending now" data={randomBooks} isHorizontal={true} />
         <ShowCase title="Most rated" data={popularBooks} isHorizontal={false} />
       </View>

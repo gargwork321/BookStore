@@ -9,7 +9,7 @@ import {fetchBookDetails} from '../../configs/bookApi';
 const BookDetailScreen: React.FC = ({route}) => {
   const bookKey = route.params.key;
   const [bookDetails, setBookDetails] = useState({});
-  const [authorDetails, setAurthorDetails] = useState({});
+  const [authorDetails, setAuthorDetails] = useState({});
 
   //Hooks
   useEffect(() => {
@@ -23,6 +23,7 @@ const BookDetailScreen: React.FC = ({route}) => {
   //Functions
   const getBookDetails = async () => {
     const _ = await fetchBookDetails(`${bookKey}`).then(data => {
+      console.log('>>>>>>', data);
       setBookDetails(data);
     });
   };
@@ -32,11 +33,11 @@ const BookDetailScreen: React.FC = ({route}) => {
       return;
     }
     const authorKey =
-      bookDetails.authors && bookDetails.authors.length > 0
-        ? bookDetails.authors[0].author.key
+      bookDetails?.authors && bookDetails?.authors?.length > 0
+        ? bookDetails?.authors[0]?.author.key
         : '';
     const _ = fetchBookDetails(`${authorKey}`).then(res => {
-      setAurthorDetails(res);
+      setAuthorDetails(res);
     });
   };
   return (

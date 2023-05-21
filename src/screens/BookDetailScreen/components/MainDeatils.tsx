@@ -6,12 +6,18 @@ import {API_ENDPOINTS} from '../../../configs/bookApi';
 import EasyImage from '../../../components/EasyImage';
 
 type BookProps = {
-  book: any;
+  book: {};
   author: {};
 };
 
 const MainDetails: React.FC<BookProps> = ({book, author}: BookProps) => {
-  const {title, covers, first_publish_date, subject_places, subjects} = book;
+  const {
+    title = '',
+    covers,
+    first_publish_date,
+    subject_places,
+    subjects,
+  } = book;
   const thumbnailUrl = covers
     ? `${API_ENDPOINTS.bookThumbnail}${covers[0]}-L.jpg`
     : null;
@@ -55,16 +61,15 @@ const styles = StyleSheet.create({
     height: 140,
   },
   textbox: {
-    margin: 10,
+    margin: 12,
     justifyContent: 'space-evenly',
     flex: 1,
   },
   title: {
     color: palette.WHITE,
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: Font.VERDANA,
     fontWeight: '500',
-    flex: 1,
     flexWrap: 'wrap',
   },
   subText: {

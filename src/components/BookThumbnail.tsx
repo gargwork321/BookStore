@@ -5,7 +5,6 @@ import Font from '../constants/Fonts';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../constants/Screens';
 import EasyImage from './EasyImage';
-import LocalImages from '../constants/LocalImages';
 import {API_ENDPOINTS} from '../configs/bookApi';
 
 type ThumbnailProps = {
@@ -17,7 +16,7 @@ const BookThumbnail: React.FC<ThumbnailProps> = ({
   book,
   isHorizontal = true,
 }: ThumbnailProps) => {
-  const {key, title, cover_i, year, ratings_average, author_name} = book;
+  const {key, title, cover_i, ratings_average, author_name} = book;
   const sizeParams = isHorizontal ? '-L.jpg' : '-M.jpg';
   const thumbnailUrl = cover_i
     ? `${API_ENDPOINTS.bookThumbnail}${cover_i}${sizeParams}`
@@ -43,7 +42,7 @@ const BookThumbnail: React.FC<ThumbnailProps> = ({
       style={styles.verticalContainer}
       onPress={showBookDetails}>
       <EasyImage webImage={thumbnailUrl} style={styles.image(isHorizontal)} />
-      <View style={{margin: 10, justifyContent: 'space-evenly'}}>
+      <View style={{margin: 10, justifyContent: 'space-evenly', flex: 1}}>
         <Text numberOfLines={2} style={styles.title(isHorizontal)}>
           {title}
         </Text>

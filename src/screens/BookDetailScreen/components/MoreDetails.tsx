@@ -9,16 +9,11 @@ type BookProps = {
 };
 
 const MoreDetails: React.FC<BookProps> = ({book, author}: BookProps) => {
-  const {description} = book;
   const [isOverviewSelected, setOverviewSelected] = useState<boolean>(true);
+  const bio = author?.bio?.value || author?.bio;
+  const description = book?.description?.value || book?.description;
+
   //Functions
-  const bio =
-    author && author.bio
-      ? author.bio.value
-        ? author.bio.value
-        : author.bio
-      : '';
-  console.log('======>', '===', bio);
   const onTabPressed = () => {
     setOverviewSelected(!isOverviewSelected);
   };
@@ -41,7 +36,7 @@ const MoreDetails: React.FC<BookProps> = ({book, author}: BookProps) => {
         <View>
           <View style={{paddingTop: 20}}>
             <Text style={styles.title}>
-              {isOverviewSelected ? book.title : author.name}
+              {isOverviewSelected ? book?.title : author?.name}
             </Text>
             <Text style={styles.detailtext}>
               {isOverviewSelected ? description : bio}

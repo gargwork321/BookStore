@@ -13,7 +13,9 @@ const EasyImage: React.FC<ImageProps> = ({webImage, style, localImage}) => {
   return (
     <Image
       style={style || styles.default}
-      source={loading ? LocalImages.downloading : localImage || {uri: webImage}}
+      source={
+        loading ? LocalImages.bookPlaceholder : localImage || {uri: webImage}
+      }
       onLoadEnd={() => setLoading(false)}
     />
   );
