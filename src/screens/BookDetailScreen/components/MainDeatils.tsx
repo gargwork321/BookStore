@@ -2,27 +2,33 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {palette} from '../../../constants/Colors';
 import Font from '../../../constants/Fonts';
+import {API_ENDPOINTS} from '../../../configs/bookApi';
+import EasyImage from '../../../components/EasyImage';
 
 type BookProps = {
-  book: {};
+  book: any;
+  author: {};
 };
 
-const MainDetails: React.FC<BookProps> = ({book}: BookProps) => {
-  const customData = require('../../../helper/dummyData/books.json');
-  const dummyBook = customData[0];
+const MainDetails: React.FC<BookProps> = ({book, author}: BookProps) => {
+  const {title, covers, first_publish_date, subject_places, subjects} = book;
+  const thumbnailUrl = covers
+    ? `${API_ENDPOINTS.bookThumbnail}${covers[0]}-L.jpg`
+    : null;
+  const origin = subject_places ? subject_places[0] : '';
+  const sub = subjects ? subjects.slice(0, 2).join(', ') : '';
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.bookImage}
-        resizeMode="cover"
-        source={require('../../../assets/images/gita.png')}
-      />
+      <EasyImage webImage={thumbnailUrl} style={styles.bookImage} />
       <View style={styles.blankBox}></View>
       <View style={styles.textbox}>
-        <Text style={styles.title}>{dummyBook.title}</Text>
-        <Text style={styles.author}>Author: {dummyBook.author}</Text>
-        <Text style={styles.author}>Released: 12 May, 2002 </Text>
-        <Text style={{color: palette.WHITE}}>5.0 ★★★★★</Text>
+        <Text numberOfLines={2} style={styles.title}>
+          {title}
+        </Text>
+        <Text style={styles.subText}>Author: {author.name}</Text>
+        <Text style={styles.subText}>Released: {first_publish_date}</Text>
+        <Text style={styles.subText}>Origin: {origin}</Text>
+        <Text style={styles.subText}>Subject: {sub}</Text>
       </View>
     </View>
   );
@@ -36,10 +42,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 20,
     marginTop: 80,
-  },
-  image: {
-    width: 40,
-    height: 40,
   },
   bookImage: {
     width: 110,
@@ -55,14 +57,17 @@ const styles = StyleSheet.create({
   textbox: {
     margin: 10,
     justifyContent: 'space-evenly',
+    flex: 1,
   },
   title: {
     color: palette.WHITE,
     fontSize: 16,
     fontFamily: Font.VERDANA,
     fontWeight: '500',
+    flex: 1,
+    flexWrap: 'wrap',
   },
-  author: {
+  subText: {
     color: palette.WHITE,
     fontFamily: Font.GEORGIA,
     fontSize: 12,

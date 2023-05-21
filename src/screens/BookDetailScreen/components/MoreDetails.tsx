@@ -5,14 +5,20 @@ import Font from '../../../constants/Fonts';
 
 type BookProps = {
   book: {};
+  author: {};
 };
 
-const MoreDetails: React.FC<BookProps> = ({book}: BookProps) => {
-  const customData = require('../../../helper/dummyData/books.json');
-  const dummyBook = customData[0];
+const MoreDetails: React.FC<BookProps> = ({book, author}: BookProps) => {
+  const {description} = book;
   const [isOverviewSelected, setOverviewSelected] = useState<boolean>(true);
-
   //Functions
+  const bio =
+    author && author.bio
+      ? author.bio.value
+        ? author.bio.value
+        : author.bio
+      : '';
+  console.log('======>', '===', bio);
   const onTabPressed = () => {
     setOverviewSelected(!isOverviewSelected);
   };
@@ -22,18 +28,25 @@ const MoreDetails: React.FC<BookProps> = ({book}: BookProps) => {
       <View style={styles.container}>
         <View style={styles.tabBarContainer}>
           <TouchableOpacity
-            style={styles.tabBox(isOverviewSelected)}
-            onPress={onTabPressed}>
-            <Text style={styles.tabText(!isOverviewSelected)}>Overview</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
             style={styles.tabBox(!isOverviewSelected)}
             onPress={onTabPressed}>
-            <Text style={styles.tabText(isOverviewSelected)}>Details</Text>
+            <Text style={styles.tabText(isOverviewSelected)}>Overview</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.tabBox(isOverviewSelected)}
+            onPress={onTabPressed}>
+            <Text style={styles.tabText(!isOverviewSelected)}>Author</Text>
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={styles.detailtext}>{dummyBook.description}</Text>
+          <View style={{paddingTop: 20}}>
+            <Text style={styles.title}>
+              {isOverviewSelected ? book.title : author.name}
+            </Text>
+            <Text style={styles.detailtext}>
+              {isOverviewSelected ? description : bio}
+            </Text>
+          </View>
         </View>
       </View>
     </>
@@ -63,6 +76,11 @@ const styles = StyleSheet.create({
     color: palette.WHITE,
     paddingTop: 30,
     fontFamily: Font.GEORGIA,
+  },
+  title: {
+    color: palette.WHITE,
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 export default MoreDetails;

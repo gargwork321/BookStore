@@ -7,7 +7,7 @@ import Screens from '../constants/Screens';
 
 type ShowcaseProps = {
   title: string;
-  data: [];
+  data: [any];
   isHorizontal: boolean;
 };
 const ShowCase: React.FC<ShowcaseProps> = ({
@@ -15,31 +15,25 @@ const ShowCase: React.FC<ShowcaseProps> = ({
   data,
   isHorizontal = true,
 }: ShowcaseProps) => {
-  const customData = require('../helper/dummyData/books.json');
+  // const customData = require('../helper/dummyData/books.json');
   const navigation = useNavigation();
   const showMoreBooks = () => {
     navigation.navigate(Screens.LISTING, {title: title});
   };
   const renderItem = ({item}) => (
-    <BookThumbnail
-      title={item.title}
-      author={item.author}
-      isHorizontal={isHorizontal}
-    />
+    <BookThumbnail book={item} isHorizontal={isHorizontal} />
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.headerSection}>
-        <Text style={{color: palette.WHITE, fontSize: 20, fontWeight: '600'}}>
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <Pressable style={{alignSelf: 'center'}} onPress={showMoreBooks}>
           <Text style={{color: palette.WHITE}}>See all</Text>
         </Pressable>
       </View>
       <FlatList
-        data={customData}
+        data={data}
         showsHorizontalScrollIndicator={false}
         renderItem={item => renderItem(item)}
         horizontal={isHorizontal}
@@ -56,6 +50,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
     justifyContent: 'space-between',
+  },
+  title: {
+    color: palette.WHITE,
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 export default ShowCase;
