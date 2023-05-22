@@ -1,19 +1,14 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import colors from '../../../constants/Colors';
+import LocalImages from '../../../constants/LocalImages';
 
 const TopHeader: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../../assets/images/menus.png')}
-      />
+      <Image style={styles.image} source={LocalImages.menu} />
       <TouchableOpacity>
-        <Image
-          style={styles.image}
-          source={require('../../../assets/images/reader.png')}
-        />
+        <Image style={styles.image} source={LocalImages.reader} />
       </TouchableOpacity>
     </View>
   );

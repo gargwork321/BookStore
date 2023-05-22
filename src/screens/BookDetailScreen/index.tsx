@@ -4,7 +4,7 @@ import {theme} from '../../constants/Colors';
 import NavigationBar from '../../components/navigationBar';
 import MainDetails from './components/MainDeatils';
 import MoreDetails from './components/MoreDetails';
-import {fetchBookDetails} from '../../configs/bookApi';
+import {fetchAuthorDetails, fetchBookDetails} from '../../configs/bookApi';
 
 const BookDetailScreen: React.FC = ({route}) => {
   const bookKey = route.params.key;
@@ -32,24 +32,19 @@ const BookDetailScreen: React.FC = ({route}) => {
     if (!Object.entries(bookDetails).length) {
       return;
     }
-    const authorKey =
-      bookDetails?.authors && bookDetails?.authors?.length > 0
-        ? bookDetails?.authors[0]?.author.key
-        : '';
-    const _ = fetchBookDetails(`${authorKey}`).then(res => {
+    const authorKey = bookDetails?.authors[0]?.author.key || '';
+    const _ = fetchAuthorDetails(`${authorKey}`).then(res => {
       setAuthorDetails(res);
     });
   };
   return (
     <SafeAreaView style={styles.container}>
       <NavigationBar />
-      {authorDetails ? (
+      {authorDetails && (
         <>
           <MainDetails book={bookDetails} author={authorDetails} />
           <MoreDetails book={bookDetails} author={authorDetails} />
         </>
-      ) : (
-        <></>
       )}
     </SafeAreaView>
   );

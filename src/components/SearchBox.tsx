@@ -1,36 +1,29 @@
-import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {palette, theme} from '../constants/Colors';
-import {useNavigation} from '@react-navigation/native';
-import Screens from '../constants/Screens';
+import React, {useCallback, useState} from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {palette} from '../constants/Colors';
+import {debounce} from 'lodash';
 
 type SearchProps = {
-  placeholder: String;
+  handleSearch: (value: string) => void;
+  placeholder: string;
 };
-const SearchBox: React.FC<SearchProps> = ({placeholder}: SearchProps) => {
-  const navigation = useNavigation();
-  const showSearchResult = () => {
-    navigation.navigate(Screens.LISTING, {title: 'Your search result'});
+const SearchBox: React.FC<SearchProps> = ({
+  placeholder,
+  handleSearch,
+}: SearchProps) => {
+  const updatedText = value => {
+    handleSearch(value);
   };
+  const handleTextDebounce = useCallback(debounce(updatedText, 1200), []);
+
   return (
     <View style={styles.container}>
       <TextInput
         placeholder={placeholder}
-        placeholderTextColor={palette.WHITE}
+        placeholderTextColor={palette.PHILLIPPINE_GRAY}
         style={styles.searchBar}
+        onChangeText={handleTextDebounce}
       />
-      <TouchableOpacity style={styles.searchButton} onPress={showSearchResult}>
-        <Image
-          style={styles.image}
-          source={require('../assets/images/search.png')}
-        />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -47,19 +40,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 15,
   },
-  searchButton: {
+  clearButton: {
     position: 'absolute',
     right: 25,
     top: 22.5,
     borderRadius: 10,
-    backgroundColor: palette.PIXIE_POWDER,
     height: 45,
     width: 45,
     justifyContent: 'center',
   },
   image: {
-    width: 20,
-    height: 20,
+    width: 40,
+    height: 40,
     alignSelf: 'center',
   },
 });
