@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {theme} from '../../constants/Colors';
+import {SafeAreaView} from 'react-native';
 import NavigationBar from '../../components/navigationBar';
-import MainDetails from './components/MainDeatils';
-import MoreDetails from './components/MoreDetails';
+import MainDetails from './components/MainDetails/MainDeatils';
+import MoreDetails from './components/MoreDetails/MoreDetails';
 import {fetchAuthorDetails, fetchBookDetails} from '../../configs/bookApi';
+import styles from './styles';
 
 const BookDetailScreen: React.FC = ({route}) => {
   const bookKey = route.params.key;
@@ -23,7 +23,6 @@ const BookDetailScreen: React.FC = ({route}) => {
   //Functions
   const getBookDetails = async () => {
     const _ = await fetchBookDetails(`${bookKey}`).then(data => {
-      console.log('>>>>>>', data);
       setBookDetails(data);
     });
   };
@@ -37,6 +36,7 @@ const BookDetailScreen: React.FC = ({route}) => {
       setAuthorDetails(res);
     });
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationBar />
@@ -49,15 +49,5 @@ const BookDetailScreen: React.FC = ({route}) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  padding: {
-    padding: 20,
-  },
-});
 
 export default BookDetailScreen;

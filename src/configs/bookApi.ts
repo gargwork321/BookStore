@@ -13,8 +13,9 @@ export const API_ENDPOINTS = {
     randomBooks: bookBaseUrl + `/search.json?q=has_fulltext:true`,
     bookThumbnail: coverBaseUrl + '/b/id/',
     bookByTitle: bookBaseUrl + `/search.json?title=`,
-    bookByAuthor: bookBaseUrl + `search/authors.json?q=`,
-    bookDetail: `${bookBaseUrl}`,
+    bookByAuthor: bookBaseUrl + `/search/authors.json?q=`,
+    bookDetail: bookBaseUrl,
+    authorBook: bookBaseUrl + `/search.json?${FIELDS}&limit=${SEARCH_LIMIT}`,
 };
 
 const apiCall = async(endPoint) => {
@@ -37,7 +38,6 @@ export const fetchRandomBooks = (params) => {
     const offset = params && params.offset ? `&offset=${params.offset}` : ``;
     const limit = params && params.limit ? `&limit=${params.limit}` : ``;
     const url = `${API_ENDPOINTS.randomBooks}${offset}${limit}${FIELDS}`;
-    console.log('fromed',url, params)
     return apiCall(url);
 }
 export const fetchBookDetails = (key) => {
@@ -50,4 +50,13 @@ export const fetchAuthorDetails = (key) => {
 
 export const searchBookByTitle = (text, page) => {
     return apiCall(`${API_ENDPOINTS.bookByTitle}${text}&limit=${SEARCH_LIMIT}&page=${page}&${FIELDS}`);
+}
+
+export const searchAuthors = (text) => {
+    return apiCall(`${API_ENDPOINTS.bookByAuthor}${text}&fields=key,name&limit=${SEARCH_LIMIT}`);
+}
+
+export const searchBooksByAuthors = (key, page) => {
+    //`${API?.authorBook}&offset=${page}&author=${key}}`
+    return apiCall(`${API_ENDPOINTS?.authorBook}&offset=${page}&author=${key}}`);
 }

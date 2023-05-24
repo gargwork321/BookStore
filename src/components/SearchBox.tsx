@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {palette} from '../constants/Colors';
+import {Colors} from '../constants/Colors';
 import {debounce} from 'lodash';
 
 type SearchProps = {
@@ -20,7 +20,7 @@ const SearchBox: React.FC<SearchProps> = ({
     <View style={styles.container}>
       <TextInput
         placeholder={placeholder}
-        placeholderTextColor={palette.PHILLIPPINE_GRAY}
+        placeholderTextColor={Colors.PHILLIPPINE_GRAY}
         style={styles.searchBar}
         onChangeText={handleTextDebounce}
       />
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   searchBar: {
-    backgroundColor: palette.PURPLE_NAVY,
+    backgroundColor: Colors.PURPLE_NAVY,
     height: 60,
     borderRadius: 10,
-    color: palette.WHITE,
+    color: Colors.WHITE,
     fontSize: 18,
     padding: 15,
   },

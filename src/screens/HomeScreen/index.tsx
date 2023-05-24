@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import TopHeader from './components/topHeader';
-import {Dimensions, Image, SafeAreaView, StyleSheet, View} from 'react-native';
-import {theme} from '../../constants/Colors';
-import Greeting from './components/greetings';
+import {Image, SafeAreaView, View} from 'react-native';
+import TopHeader from './components/TopHeader/topHeader';
+import Greeting from './components/Greetings/greetings';
 import ShowCase from '../../components/Showcase';
 import {fetchRandomBooks} from '../../configs/bookApi';
 import LocalImages from '../../constants/LocalImages';
+import {Strings} from '../../constants/Strings';
+import styles from './styles';
 
 type Props = {
   navigation: any;
@@ -15,7 +16,8 @@ const HomeScreen: React.FC<Props> = () => {
   const [randomBooks, setRandomBooks] = useState([]);
   const [popularBooks, setPopularBooks] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const {dummyUser} = Strings.homepage;
+  const {trending, mostRated} = Strings.showcase;
   //Hooks
   useEffect(() => {
     // API call for random books
@@ -41,19 +43,15 @@ const HomeScreen: React.FC<Props> = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <TopHeader />
-        <Greeting name="Vivek" />
+        <Greeting name={dummyUser} />
         {loading && (
           <Image style={styles.loader} source={LocalImages.loading} />
         )}
         {!loading && (
           <>
+            <ShowCase title={trending} data={randomBooks} isHorizontal={true} />
             <ShowCase
-              title="Trending now"
-              data={randomBooks}
-              isHorizontal={true}
-            />
-            <ShowCase
-              title="Most rated"
+              title={mostRated}
               data={popularBooks}
               isHorizontal={false}
             />
@@ -63,25 +61,5 @@ const HomeScreen: React.FC<Props> = () => {
     </SafeAreaView>
   );
 };
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-//Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  padding: {
-    padding: 20,
-  },
-  loader: {
-    height: 200,
-    width: 200,
-    position: 'absolute',
-    left: windowWidth / 2 - 100,
-    top: windowHeight / 2 - 100,
-  },
-});
 
 export default HomeScreen;

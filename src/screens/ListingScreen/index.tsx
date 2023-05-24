@@ -5,27 +5,43 @@ import {
   Image,
   SafeAreaView,
   StyleSheet,
+  Switch,
   Text,
+  View,
 } from 'react-native';
-import {palette, theme} from '../../constants/Colors';
+import {Colors} from '../../constants/Colors';
 import NavigationBar from './../../components/navigationBar';
 import BookThumbnail from '../../components/BookThumbnail';
 import Font from '../../constants/Fonts';
-import {fetchRandomBooks, searchBookByTitle} from '../../configs/bookApi';
+import {
+  fetchRandomBooks,
+  searchAuthors,
+  searchBookByTitle,
+  searchBooksByAuthors,
+} from '../../configs/bookApi';
 import SearchBox from '../../components/SearchBox';
 import LocalImages from '../../constants/LocalImages';
+import styles from './styles';
+import {Strings} from '../../constants/Strings';
 
 const ListingScreen: React.FC = ({route}) => {
   const [randomBooks, setRandomBooks] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isByTitle, setIsByTitle] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const listTitle = route.params.title;
   const isSearching = route.params.isSearching;
   const [loadMore, setLoadMore] = useState<boolean>(false);
   const [searchString, setSearchString] = useState<string>('');
   let pageRef = useRef<number>(0);
+  const {searchByAuthor, searchByTitle, placeholder} = Strings.searching;
 
   //Hooks
+  useEffect(() => {
+    console.log(isByTitle);
+    isByTitle ? searchBook(searchString) : searchBookByAuthor(searchString);
+  }, [searchString]);
+
   useEffect(() => {
     // API call for random books
     if (!isSearching) getBooks();
@@ -34,9 +50,17 @@ const ListingScreen: React.FC = ({route}) => {
   useEffect(() => {
     if (loadMore) {
       pageRef.current = pageRef.current + 10;
-      isSearching ? searchBook(searchString) : getBooks();
+      isSearching
+        ? isByTitle
+          ? searchBook(searchString)
+          : searchBookByAuthor(searchString)
+        : getBooks();
     }
   }, [loadMore]);
+
+  useEffect(() => {
+    setRandomBooks([]);
+  }, [isByTitle]);
 
   //Functions
   const getBooks = async () => {
@@ -59,10 +83,10 @@ const ListingScreen: React.FC = ({route}) => {
   };
 
   const searchBook = async text => {
+    if (text === '') return;
     const result = await searchBookByTitle(text, 10);
     const books = result?.docs;
     if (books) {
-      console.log('seached books', books);
       loadMore
         ? setRandomBooks(prevState => [...prevState, ...books])
         : setRandomBooks(books);
@@ -71,16 +95,31 @@ const ListingScreen: React.FC = ({route}) => {
     }
   };
 
+  const searchBookByAuthor = async text => {
+    if (text === '') return;
+    const result = await searchAuthors(text, 10);
+    const authors = result?.docs;
+    // if (authors) {
+    console.log('seached author', authors);
+    for (let author of authors) {
+      const key = author.key;
+      const res = searchBooksByAuthors(key, 10).then(data => {
+        console.log('book', data);
+        const books = data.docs;
+        setRandomBooks(prevState => [...prevState, ...books]);
+      });
+    }
+    //   loadMore
+    //     ? setRandomBooks(prevState => [...prevState, ...books])
+    //     : setRandomBooks(books);
+    // } else {
+    //   setError(true);
+    // }
+  };
   const showMore = () => {
     if (randomBooks?.length > 9) {
       setLoadMore(true);
     }
-  };
-
-  const getUpdatedText = value => {
-    setSearchString(value);
-    console.log('value receivied =>', value, searchString);
-    searchBook(value);
   };
 
   const renderItem = ({item}) => (
@@ -92,9 +131,26 @@ const ListingScreen: React.FC = ({route}) => {
       <NavigationBar />
       <Image style={styles.bookStack} source={LocalImages.bookStack} />
       {loading && <Image style={styles.loader} source={LocalImages.loading} />}
-      <Text style={styles.title}>{listTitle}</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>
+          {listTitle}
+          {isSearching ? (isByTitle ? searchByTitle : searchByAuthor) : ''}
+        </Text>
+        {isSearching && (
+          <Switch
+            trackColor={{true: Colors.DEEP_SPACE_SPARKLE}}
+            ios_backgroundColor={Colors.FRENCH_SKY_BLUE} //
+            onValueChange={() => setIsByTitle(!isByTitle)}
+            value={isByTitle}
+            style={{alignSelf: 'center'}}
+          />
+        )}
+      </View>
       {isSearching && (
-        <SearchBox handleSearch={getUpdatedText} placeholder="Search Books" />
+        <SearchBox
+          handleSearch={value => setSearchString(value)}
+          placeholder={placeholder}
+        />
       )}
       <FlatList
         data={randomBooks}
@@ -108,39 +164,5 @@ const ListingScreen: React.FC = ({route}) => {
     </SafeAreaView>
   );
 };
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  padding: {
-    padding: 20,
-  },
-  title: {
-    fontSize: 25,
-    color: palette.WHITE,
-    fontFamily: Font.VERDANA,
-    fontWeight: '500',
-    margin: 20,
-  },
-  bookStack: {
-    height: 200,
-    width: 200,
-    position: 'absolute',
-    right: 10,
-    top: 50,
-    opacity: 0.2,
-  },
-  loader: {
-    height: 200,
-    width: 200,
-    position: 'absolute',
-    left: windowWidth / 2 - 100,
-    top: windowHeight / 2 - 100,
-  },
-});
 
 export default ListingScreen;

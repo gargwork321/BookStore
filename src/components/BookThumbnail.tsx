@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {palette} from '../constants/Colors';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Colors} from '../constants/Colors';
 import Font from '../constants/Fonts';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../constants/Screens';
@@ -42,38 +42,41 @@ const BookThumbnail: React.FC<ThumbnailProps> = ({
       style={styles.verticalContainer}
       onPress={showBookDetails}>
       <EasyImage webImage={thumbnailUrl} style={styles.image(isHorizontal)} />
-      <View style={{margin: 10, justifyContent: 'space-evenly', flex: 1}}>
+      <View style={styles.textContainer}>
         <Text numberOfLines={2} style={styles.title(isHorizontal)}>
           {title}
         </Text>
         <Text style={styles.author(isHorizontal)}>by {author} </Text>
-        {ratings_average ? (
-          <Text style={{color: palette.WHITE}}>{ratings_average}★</Text>
-        ) : (
-          <></>
+        {ratings_average && (
+          <Text style={{color: Colors.WHITE}}>{ratings_average}★</Text>
         )}
       </View>
     </TouchableOpacity>
   );
 };
 
+//Styles
 const styles = StyleSheet.create({
   container: {
     width: 180,
     height: 280,
     margin: 5,
-    // justifyContent: 'center',
     borderRadius: 20,
-    borderColor: palette.WHITE,
+    borderColor: Colors.WHITE,
     borderWidth: 1,
     padding: 10,
   },
   verticalContainer: {
     flexDirection: 'row',
-    backgroundColor: palette.PURPLE_NAVY,
+    backgroundColor: Colors.PURPLE_NAVY,
     paddingHorizontal: 10,
     borderRadius: 10,
     marginVertical: 5,
+  },
+  textContainer: {
+    margin: 10,
+    justifyContent: 'space-evenly',
+    flex: 1,
   },
   image: isHorizontal => ({
     width: isHorizontal ? 100 : 50,
@@ -83,15 +86,16 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   }),
   title: isHorizontal => ({
-    color: palette.WHITE,
+    color: Colors.WHITE,
     fontSize: isHorizontal ? 18 : 16,
     fontFamily: Font.VERDANA,
     fontWeight: isHorizontal ? '500' : '400',
   }),
   author: isHorizontal => ({
-    color: palette.WHITE,
+    color: Colors.WHITE,
     fontFamily: Font.GEORGIA,
     fontSize: isHorizontal ? 14 : 12,
   }),
 });
+
 export default BookThumbnail;
