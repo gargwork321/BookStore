@@ -20,10 +20,9 @@ export const Strings = {
         },
     },
     searching:{
-        search:'Search books',
         placeholder:'Search Books',
-        searchByTitle: ' by title',
-        searchByAuthor:' by author' 
+        searchByTitle: 'Search books by title',
+        searchByAuthor:'Search books by author' 
     },
     bookDetails:{
         tab1: 'Overview',

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     color: Colors.WHITE,
     fontFamily: Font.VERDANA,
     fontWeight: '500',

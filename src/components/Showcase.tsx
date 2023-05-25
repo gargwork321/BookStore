@@ -21,7 +21,7 @@ const ShowCase: React.FC<ShowcaseProps> = ({
 
   //Functions
   const showMoreBooks = () => {
-    navigation.navigate(Screens.LISTING, {title: title, isSearching: false});
+    navigation.navigate(Screens.LISTING, {title: title});
   };
   const renderItem = ({item}) => (
     <BookThumbnail book={item} isHorizontal={isHorizontal} />

@@ -16,10 +16,7 @@ const Greeting: React.FC<GreetingProps> = ({name}: GreetingProps) => {
   const navigation = useNavigation();
   //Function
   const showSearchScreen = () => {
-    navigation.navigate(Screens.LISTING, {
-      title: Strings.searching.search,
-      isSearching: true,
-    });
+    navigation.navigate(Screens.SEARCHING);
   };
 
   return (
