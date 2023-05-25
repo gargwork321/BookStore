@@ -7,13 +7,13 @@ import {
   searchAuthors,
   searchBookByTitle,
   searchBooksByAuthors,
-} from '../../configs/bookApi';
+} from '../../network/network';
 import SearchBox from '../../components/SearchBox';
 import LocalImages from '../../constants/LocalImages';
 import styles from './styles';
 import {Strings} from '../../constants/Strings';
 
-const SearchScreen: React.FC = ({route}) => {
+const SearchScreen: React.FC = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isByTitle, setIsByTitle] = useState<boolean>(true);

@@ -3,10 +3,10 @@ import {Image, SafeAreaView, View} from 'react-native';
 import TopHeader from './components/TopHeader/topHeader';
 import Greeting from './components/Greetings/greetings';
 import ShowCase from '../../components/Showcase';
-import {fetchRandomBooks} from '../../configs/bookApi';
 import LocalImages from '../../constants/LocalImages';
 import {Strings} from '../../constants/Strings';
 import styles from './styles';
+import {fetchRandomBooks} from '../../network/network';
 
 type Props = {
   navigation: any;

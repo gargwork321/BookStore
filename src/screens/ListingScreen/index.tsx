@@ -2,10 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import {FlatList, Image, SafeAreaView, Text, View} from 'react-native';
 import NavigationBar from './../../components/navigationBar';
 import BookThumbnail from '../../components/BookThumbnail';
-import {fetchRandomBooks} from '../../configs/bookApi';
 import LocalImages from '../../constants/LocalImages';
 import styles from './styles';
 import {Strings} from '../../constants/Strings';
+import {fetchRandomBooks} from '../../network/network';
 
 const ListingScreen: React.FC = ({route}) => {
   const [randomBooks, setRandomBooks] = useState([]);
