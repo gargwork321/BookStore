@@ -60,6 +60,7 @@ const ListingScreen: React.FC = ({route}) => {
 
   useEffect(() => {
     setRandomBooks([]);
+    isByTitle ? searchBook(searchString) : searchBookByAuthor(searchString);
   }, [isByTitle]);
 
   //Functions
@@ -109,12 +110,6 @@ const ListingScreen: React.FC = ({route}) => {
         setRandomBooks(prevState => [...prevState, ...books]);
       });
     }
-    //   loadMore
-    //     ? setRandomBooks(prevState => [...prevState, ...books])
-    //     : setRandomBooks(books);
-    // } else {
-    //   setError(true);
-    // }
   };
   const showMore = () => {
     if (randomBooks?.length > 9) {
