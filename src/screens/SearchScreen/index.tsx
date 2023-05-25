@@ -59,10 +59,17 @@ const SearchScreen: React.FC = ({route}) => {
     } else {
       setError(true);
     }
+    loadMore ? setLoadMore(false) : setIsLoading(false);
   };
 
   const searchBookByAuthor = async text => {
     if (text === '') return;
+    if (error) {
+      setError(false);
+    }
+    if (!isLoading && !loadMore) {
+      setIsLoading(true);
+    }
     const result = await searchAuthors(text, 10);
     const authors = result?.docs;
     console.log('seached author', authors);
@@ -74,6 +81,7 @@ const SearchScreen: React.FC = ({route}) => {
         setSearchedBooks(prevState => [...prevState, ...books]);
       });
     }
+    loadMore ? setLoadMore(false) : setIsLoading(false);
   };
 
   const showMore = () => {
@@ -91,7 +99,7 @@ const SearchScreen: React.FC = ({route}) => {
       <NavigationBar />
       <Image style={styles.bookStack} source={LocalImages.bookStack} />
       {isLoading && (
-        <Image style={styles.loader} source={LocalImages.isLoading} />
+        <Image style={styles.loader} source={LocalImages.loading} />
       )}
       <View style={styles.titleContainer}>
         <Text style={styles.title}>
