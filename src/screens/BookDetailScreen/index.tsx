@@ -3,7 +3,7 @@ import {SafeAreaView} from 'react-native';
 import NavigationBar from '../../components/navigationBar';
 import MainDetails from './components/MainDetails/MainDeatils';
 import MoreDetails from './components/MoreDetails/MoreDetails';
-import {fetchAuthorDetails, fetchBookDetails} from '../../configs/bookApi';
+import {fetchAuthorDetails, fetchBookDetails} from '../../network/network';
 import styles from './styles';
 
 const BookDetailScreen: React.FC = ({route}) => {
