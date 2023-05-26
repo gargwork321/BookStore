@@ -72,11 +72,11 @@ const SearchScreen: React.FC = () => {
     }
     const result = await searchAuthors(text, 10);
     const authors = result?.docs;
-    console.log('seached author', authors);
+    // console.log('seached author', authors);
     for (let author of authors) {
       const key = author.key;
       const res = searchBooksByAuthors(key, 10).then(data => {
-        console.log('book', data);
+        // console.log('book', data);
         const books = data.docs;
         setSearchedBooks(prevState => [...prevState, ...books]);
       });

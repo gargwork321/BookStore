@@ -1,15 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
 import AppNavigation from './src/navigation/appNavigation';
+import {Provider} from 'react-redux';
+import bookStore from './src/redux/store';
 
 function App(): JSX.Element {
-  return <AppNavigation />;
+  return (
+    <Provider store={bookStore}>
+      <AppNavigation />
+    </Provider>
+  );
 }
 
 export default App;

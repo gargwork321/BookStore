@@ -1,0 +1,3 @@
+export const SET_RANDOM_BOOKS = 'SET_RANDOM_BOOKS';
+export const SET_POPULAR_BOOK = 'SET_POPULAR_BOOK';
+

@@ -17,7 +17,7 @@ export const API_ENDPOINTS = {
 };
 
 export const apiCall = async(endPoint) => {
-    console.log('endpoint hitting:',endPoint)
+    // console.log('endpoint hitting:',endPoint)
     const options = {
             method: 'GET',
             url: endPoint
