@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5A2E9576B745B162464C72E5 /* libPods-BookStore-BookStoreTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B2A320F9B0FB12B34D9877E /* libPods-BookStore-BookStoreTests.a */; };
+		600D7AED2A209B6B00BF8493 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 600D7AEC2A209B6B00BF8493 /* Assets.xcassets */; };
 		706DB143AFE3E9A586E16B27 /* libPods-BookStore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE76B1826C3CBE863368FAA2 /* libPods-BookStore.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BookStore/main.m; sourceTree = "<group>"; };
 		2B2A320F9B0FB12B34D9877E /* libPods-BookStore-BookStoreTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookStore-BookStoreTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD2E99465DA807CE8A5D7FE /* Pods-BookStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStore.release.xcconfig"; path = "Target Support Files/Pods-BookStore/Pods-BookStore.release.xcconfig"; sourceTree = "<group>"; };
+		600D7AEC2A209B6B00BF8493 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7F724ED2D752D415EB9CB120 /* Pods-BookStore-BookStoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStore-BookStoreTests.debug.xcconfig"; path = "Target Support Files/Pods-BookStore-BookStoreTests/Pods-BookStore-BookStoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BookStore/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A50990A1916BBCA8143C056E /* Pods-BookStore-BookStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookStore-BookStoreTests.release.xcconfig"; path = "Target Support Files/Pods-BookStore-BookStoreTests/Pods-BookStore-BookStoreTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				600D7AEC2A209B6B00BF8493 /* Assets.xcassets */,
 				13B07FAE1A68108700A75B9A /* BookStore */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BookStoreTests */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				600D7AED2A209B6B00BF8493 /* Assets.xcassets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
