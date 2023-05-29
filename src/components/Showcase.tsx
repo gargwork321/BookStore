@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../constants/Colors';
 import BookThumbnail from './BookThumbnail';
@@ -23,8 +23,9 @@ const ShowCase: React.FC<ShowcaseProps> = ({
   const showMoreBooks = () => {
     navigation.navigate(Screens.LISTING, {title: title});
   };
-  const renderItem = ({item}) => (
-    <BookThumbnail book={item} isHorizontal={isHorizontal} />
+  const renderItem = useCallback(
+    ({item}) => <BookThumbnail book={item} isHorizontal={isHorizontal} />,
+    [],
   );
 
   return (
@@ -40,6 +41,7 @@ const ShowCase: React.FC<ShowcaseProps> = ({
         showsHorizontalScrollIndicator={false}
         renderItem={item => renderItem(item)}
         horizontal={isHorizontal}
+        keyExtractor={item => item.key}
       />
     </View>
   );

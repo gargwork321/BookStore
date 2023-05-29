@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {FlatList, Image, SafeAreaView, Text, View} from 'react-native';
 import NavigationBar from './../../components/navigationBar';
 import BookThumbnail from '../../components/BookThumbnail';
@@ -56,8 +56,9 @@ const ListingScreen: React.FC = ({route}) => {
     }
   };
 
-  const renderItem = ({item}) => (
-    <BookThumbnail book={item} isHorizontal={false} />
+  const renderItem = useCallback(
+    ({item}) => <BookThumbnail book={item} isHorizontal={false} />,
+    [],
   );
 
   return (
@@ -76,6 +77,7 @@ const ListingScreen: React.FC = ({route}) => {
         style={styles.padding}
         onEndReachedThreshold={0.01}
         onEndReached={showMore}
+        keyExtractor={item => item.key}
       />
     </SafeAreaView>
   );

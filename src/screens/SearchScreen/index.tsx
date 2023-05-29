@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {FlatList, Image, SafeAreaView, Switch, Text, View} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import NavigationBar from './../../components/navigationBar';
@@ -90,8 +90,9 @@ const SearchScreen: React.FC = () => {
     }
   };
 
-  const renderItem = ({item}) => (
-    <BookThumbnail book={item} isHorizontal={false} />
+  const renderItem = useCallback(
+    ({item}) => <BookThumbnail book={item} isHorizontal={false} />,
+    [],
   );
 
   return (
@@ -125,6 +126,7 @@ const SearchScreen: React.FC = () => {
         style={styles.padding}
         onEndReachedThreshold={0.01}
         onEndReached={showMore}
+        keyExtractor={item => item.key}
       />
     </SafeAreaView>
   );
