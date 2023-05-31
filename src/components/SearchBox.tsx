@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, memo} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {Colors} from '../constants/Colors';
 import {debounce} from 'lodash';
@@ -11,11 +11,12 @@ const SearchBox: React.FC<SearchProps> = ({
   placeholder,
   handleSearch,
 }: SearchProps) => {
+  //Functions
   const updatedText = value => {
     handleSearch(value);
   };
-  const handleTextDebounce = useCallback(debounce(updatedText, 1200), []);
 
+  const handleTextDebounce = useCallback(debounce(updatedText, 1200), []);
   return (
     <View style={styles.container}>
       <TextInput
@@ -55,4 +56,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
-export default SearchBox;
+
+export default memo(SearchBox);

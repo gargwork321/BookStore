@@ -95,6 +95,10 @@ const SearchScreen: React.FC = () => {
     [],
   );
 
+  const handleSearch = useCallback(value => {
+    setSearchString(value);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationBar />
@@ -114,10 +118,7 @@ const SearchScreen: React.FC = () => {
           style={{alignSelf: 'center'}}
         />
       </View>
-      <SearchBox
-        handleSearch={value => setSearchString(value)}
-        placeholder={placeholder}
-      />
+      <SearchBox handleSearch={handleSearch} placeholder={placeholder} />
       <FlatList
         data={searchedBooks}
         extraData={searchedBooks}
